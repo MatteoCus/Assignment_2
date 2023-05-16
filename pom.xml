@@ -14,8 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -24,6 +24,18 @@
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
+    </dependency>
+        <dependency>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.10</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>5.3.1</version>
+        <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -43,10 +55,6 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
@@ -71,5 +79,83 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.2.2</version>
+        <configuration>
+          <configLocation>config/checkstyle.xml</configLocation>
+          <consoleOutput>true</consoleOutput>
+          <failsOnError>true</failsOnError>
+          <linkXRef>false</linkXRef>
+        </configuration>
+        <executions>
+          <execution>
+            <id>checkstyle</id>
+            <phase>package</phase>
+            <goals>
+              <goal>checkstyle</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+		  	<groupId>org.apache.maven.plugins</groupId>
+		  	<artifactId>maven-surefire-plugin</artifactId>
+		  	<version>2.22.0</version>
+		  	<dependencies>
+		  		<dependency>
+		  			<groupId>org.apache.maven.surefire</groupId>
+		  			<artifactId>surefire-junit4</artifactId>
+		  			<version>2.22.0</version>
+		  		</dependency>
+		  	</dependencies>
+		  	<configuration>
+		  		<includes>
+		  			<include>**/*.java</include>
+		  		</includes>
+		  	</configuration>
+		  </plugin>
+      		  <plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.10</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>generate-code-coverage-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+	    <plugin>
+			<groupId>com.github.bordertech.buildtools</groupId>
+			<artifactId>badger</artifactId>
+			<version>1.0.0</version>
+			<executions>
+				<execution>
+					<phase>package</phase>
+					<goals>
+						<goal>badges</goal>
+					</goals>
+					<configuration>
+						<skip>${badges.skip}</skip>
+						<outputDir>.github/badges</outputDir>
+						<inputFiles>
+							<inputFile>target/checkstyle-result.xml</inputFile>
+						</inputFiles>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+    </plugins>
   </build>
 </project>
