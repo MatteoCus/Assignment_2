@@ -13,8 +13,8 @@ public class IntegerToRoman
         {
             throw new InvalidNumberException();
         }
-        final int[] val = {5,4,1};
-        final String[] rom = {"V","IV","I"};
+        final int[] val = {10,9,5,4,1};
+        final String[] rom = {"X","IX","V","IV","I"};
 
         StringBuilder ans = new StringBuilder();
         for (int i = 0; number > 0; i++)
