@@ -11,73 +11,72 @@ public class RomanPrinter {
     }
 
     private static String printAsciiArt(String romanNumber) throws InvalidLetterException {
-        String result = "";
-        switch (romanNumber) {
-            case "I":
-                result +=   "  _____  \n" +  
-                            " |_   _| \n" + 
-                            "   | |   \n" +
-                            "   | |   \n" +
-                            "  _| |_  \n" + 
-                            " |_____| \n";
-                break;
-            case "V":
-                result +=   " __      __ \n" +
-                            " \\ \\    / / \n" +
-                            "  \\ \\  / /  \n" +
-                            "   \\ \\/ /   \n" +
-                            "    \\  /    \n" +
-                            "     \\/     \n";
-                break;
-
-            case "X":
-                result +=   " __   __ \n" +
-                            " \\ \\ / / \n" +
-                            "  \\ V /  \n" +
-                            "   > <   \n" +
-                            "  / . \\  \n" +
-                            " /_/ \\_\\ \n" ;
-                break;
-
-            case "L":
-                result +=   "  _       \n" +
-                            " | |      \n" +
-                            " | |      \n" +
-                            " | |      \n" +
-                            " | |____  \n" +
-                            " |______| \n" ;
-                break;
-
-            case "C":
-                result +=   "   _____  \n" +
-                            "  / ____| \n" +
-                            " | |      \n" +
-                            " | |      \n" +
-                            " | |____  \n" +
-                            "  \\_____| \n";
-                break;
-
-            case "D":
-                result +=   "  _____   \n" +
-                            " |  __ \\  \n" +
-                            " | |  | | \n" +
-                            " | |  | | \n" +
-                            " | |__| | \n" +
-                            " |_____/  \n";
-                break;
-
-                case "M":
-                result +=   "  __  __  \n" +
-                            " |  \\/  | \n" +
-                            " | \\  / | \n" +
-                            " | |\\/| | \n" +
-                            " | |  | | \n" +
-                            " |_|  |_| \n" ;
-                break;
-
-            default:
-                throw new InvalidLetterException();
+        String[] result = new String[6];
+        for(int i = 0; i < result.length; i++) { result[i] = ""; }
+        char[] letters = romanNumber.toCharArray();
+        for(int i = 0; i < letters.length; i++) {
+            switch (letters[i]) {
+                case 'I':
+                    result[0] +=   "  _____  ";  
+                    result[1] +=   " |_   _| " ; 
+                    result[2] +=   "   | |   " ;
+                    result[3] +=   "   | |   " ;
+                    result[4] +=   "  _| |_  " ; 
+                    result[5] +=   " |_____| ";
+                    break;
+                case 'V':
+                    result[0] +=   " __      __ ";
+                    result[1] +=   " \\ \\    / / ";
+                    result[2] +=   "  \\ \\  / /  ";
+                    result[3] +=   "   \\ \\/ /   ";
+                    result[4] +=   "    \\  /    ";
+                    result[5] +=   "     \\/     ";
+                    break;
+                case 'X':
+                    result[0] +=   " __   __ ";
+                    result[1] +=   " \\ \\ / / ";
+                    result[2] +=   "  \\ V /  ";
+                    result[3] +=   "   > <   ";
+                    result[4] +=   "  / . \\  ";
+                    result[5] +=   " /_/ \\_\\ " ;
+                    break;
+                case 'L':
+                    result[0] +=   "  _       ";
+                    result[1] +=   " | |      ";
+                    result[2] +=   " | |      ";
+                    result[3] +=   " | |      ";
+                    result[4] +=   " | |____  ";
+                    result[5] +=   " |______| " ;
+                    break;
+                case 'C':
+                    result[0] +=   "   _____  ";
+                    result[1] +=   "  / ____| ";
+                    result[2] +=   " | |      ";
+                    result[3] +=   " | |      ";
+                    result[4] +=   " | |____  ";
+                    result[5] +=   "  \\_____| ";
+                    break;
+                case 'D':
+                    result[0] +=   "  _____   ";
+                    result[1] +=   " |  __ \\  ";
+                    result[2] +=   " | |  | | ";
+                    result[3] +=   " | |  | | ";
+                    result[4] +=   " | |__| | ";
+                    result[5] +=   " |_____/  ";
+                    break;
+                case 'M':
+                    result[0] +=   "  __  __  ";
+                    result[1] +=   " |  \\/  | ";
+                    result[2] +=   " | \\  / | ";
+                    result[3] +=   " | |\\/| | ";
+                    result[4] +=   " | |  | | ";
+                    result[5] +=   " |_|  |_| " ;
+                    break;
+                default:
+                    throw new InvalidLetterException();
+            }
         }
-        return result;
+        for (int i = 0; i < 6; i++) { result[i] += "\n";}
+        return result[0] + result[1] + result[2] + result[3] + result[4] + result[5];
     }
 }
