@@ -9,8 +9,62 @@ import java.util.Arrays;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.Test;
 
+@RunWith(Enclosed.class)
 public class IntegerToRomanTest
 {
+    @RunWith(Parameterized.class)
+    public static class IntegerToRomanParamTests
+    {
+        private int numero;
+        private String expected;
+
+        public IntegerToRomanParamTests(int numero, String expected)
+        {
+            super();
+            this.numero = numero;
+            this.expected = expected;
+        }
+
+        @Parameterized.Parameters
+        public static Collection input()
+        {
+            return Arrays.asList(new Object[][] {{1,"I"},{2,"II"},{3,"III"}});
+        }
+
+        @Test
+        public void testIntegerToRomanTest() throws InvalidNumberException
+        {
+            // Arrange
+            String actual = "";
+
+            // Act
+            actual = IntegerToRoman.convert(numero);
+
+            // Assert
+            assertEquals(expected, actual);
+        }
+    }
     
+
+    public static class IntegerToRomanSingleTests
+    {
+        @Test(expected = InvalidNumberException.class)
+        public void negativeNumber() throws InvalidNumberException 
+        {
+            // Arrange
+        
+            //Act
+            IntegerToRoman.convert(-1);
+        }
+
+        @Test(expected = InvalidNumberException.class)
+        public void overflowNumber() throws InvalidNumberException 
+        {
+            // Arrange
+        
+            //Act
+            IntegerToRoman.convert(1001);
+        }
+    }
 
 }
